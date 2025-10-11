@@ -1,20 +1,28 @@
 package devandroid.moacir.orca
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Encontra o botão pelo ID
+        val btnLancamentos = findViewById<Button>(R.id.btnGoToLancamentos)
+
+        // Configura o listener de clique
+        btnLancamentos.setOnClickListener {
+            // Cria uma Intent para abrir a LancamentosActivity
+            val intent = Intent(this, LancamentosActivity::class.java)
+            // Inicia a nova activity
+            startActivity(intent)
         }
+
+        // TODO: Adicionar listeners para os botões de Relatórios e Configurações quando criar as Activities
     }
 }
