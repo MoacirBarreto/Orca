@@ -15,7 +15,7 @@
     <string name="categoria_4">Categoria 4</string>
     <string name="categoria_5">Categoria 5</string>
     <string name="salvar_lancamento">Salvar Lançamento</string>
-    <string name="lan_amentos">Fazer Lançamentos</string>
-    <string name="relat_rios">Relatórios por período</string>
-    <string name="configura_es">Personalização</string>
+    <string name="lancamentos">Fazer Lançamentos</string>
+    <string name="relatorios">Relatórios por período</string>
+    <string name="custon">Personalização</string>
 </resources>

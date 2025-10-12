@@ -6,22 +6,25 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/Theme.Orca"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".LancamentosActivity">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
 
         <TextView
-            android:id="@+id/textTitulo"
+            android:id="@+id/textViewTitLancamentos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textviewTitulo"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,11 +37,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textTitulo2"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitLancamentos" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldDate"
@@ -72,10 +75,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textView4"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textFieldDate" />
-
 
         <TextView
             android:id="@+id/textView5"
@@ -85,6 +88,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textView5"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupNatureza" />
@@ -98,7 +103,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:ignore="VisualLintButtonSize"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            >
 
             <RadioButton
                 android:id="@+id/radioBtnReceita"
@@ -106,7 +114,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:text="@string/radioBtnReceita" />
+                android:text="@string/radioBtnReceita"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <RadioButton
                 android:id="@+id/radioBtnDespesa"
@@ -114,8 +123,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-
-                android:text="@string/radioBtnDespesa" />
+                android:minHeight="48dp"
+                android:text="@string/radioBtnDespesa"
+                tools:ignore="TouchTargetSizeCheck" />
         </RadioGroup>
 
         <RadioGroup

@@ -1,18 +1,86 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Orca" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- =============================================================== -->
+    <!-- TEMA PRINCIPAL DO APP (MODO CLARO / PADRÃO)                       -->
+    <!-- =============================================================== -->
+    <style name="Theme.Orca" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Cores Primárias (cor principal do app, botões, etc.) -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+
+        <!-- Cores Secundárias (para elementos de menor destaque) -->
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+
+        <!-- Cores Terciárias (para acentos e destaques) -->
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+
+        <!-- Cor de Erro -->
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+
+        <!-- Cores de Fundo e Superfície (background do app, cards, etc.) -->
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_light_surfaceContainerHighest</item>
+
+        <!-- Cor da Borda (Outlines) -->
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+
+        <!-- Fonte Padrão para todo o App -->
+        <item name="android:fontFamily">@font/app_font_family</item>
+
+        <!-- =============================================================== -->
+        <!--     AS LINHAS CORRIGIDAS FORAM MOVIDAS PARA CÁ (O LUGAR CERTO)    -->
+        <!-- =============================================================== -->
+        <item name="textAppearanceTitleLarge">@style/My.textAppearanceTitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/My.textAppearanceTitleMedium</item>
+
     </style>
 
-    <style name="Theme.Orca" parent="Base.Theme.Orca" />
-    <style name="Orca.Label" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">24dp</item>
-        <item name="android:layout_marginEnd">24dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
-        </item>
-        <item name="android:textStyle">bold</item>
+    <!-- =============================================================== -->
+    <!-- ESTILO PARA RÓTULOS (LABELS)                                    -->
+    <!-- =============================================================== -->
+    <style name="Label.Orca" parent="Widget.MaterialComponents.TextView">
+        <!-- Fonte específica para os rótulos -->
+        <item name="android:fontFamily">@font/roboto_italic</item>
+
+        <!-- Aparência do texto (tamanho, espaçamento) -->
+        <!-- Esta linha usa um dos estilos que você redefiniu acima -->
+        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
+
+        <!-- Cor do texto, que se adapta ao tema (claro/escuro) -->
+        <item name="android:textColor">?attr/colorOnSurface</item>
+
+        <!-- AS LINHAS FORAM REMOVIDAS DAQUI -->
+
     </style>
+
+    <!-- =============================================================== -->
+    <!-- ESTILOS DE TEXTO CUSTOMIZADOS                                   -->
+    <!-- =============================================================== -->
+    <style name="My.textAppearanceTitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <!-- Herda tudo de TitleLarge, mas sobrescreve o tamanho da fonte -->
+        <item name="android:textSize">28sp</item> <!-- Ajustei para um valor mais razoável que 200sp -->
+    </style>
+
+    <style name="My.textAppearanceTitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <!-- Herda tudo de TitleMedium, mas sobrescreve o tamanho da fonte -->
+        <item name="android:textSize">22sp</item> <!-- Ajustei para um valor mais razoável que 40sp -->
+    </style>
+
 </resources>

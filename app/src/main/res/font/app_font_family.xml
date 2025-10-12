@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fonte para o estilo normal (regular) -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/roboto_regular" />
+
+    <!-- Fonte para o estilo itálico -->
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        android:font="@font/roboto_italic" />
+
+    <!-- Fonte para o estilo negrito (bold) -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/roboto_black" />
+
+
+
+</font-family>
