@@ -5,20 +5,14 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/roboto_regular" />
+        android:font="@font/verdana" />
 
     <!-- Fonte para o estilo itálico -->
     <font
         android:fontStyle="italic"
         android:fontWeight="400"
-        android:font="@font/roboto_italic" />
+        android:font="@font/verdana_italic" />
 
     <!-- Fonte para o estilo negrito (bold) -->
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="700"
-        android:font="@font/roboto_black" />
-
-
 
 </font-family>

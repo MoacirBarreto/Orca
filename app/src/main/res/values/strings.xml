@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Orca</string>
-    <string name="textviewTitulo">Seu Orçamento Pessoal</string>
+    <string name="textviewTitulo">Orçamento Pessoal</string>
     <string name="textTitulo2">Lançamentos</string>
     <string name="textViewData">Data</string>
     <string name="radioBtnReceita">Receita</string>

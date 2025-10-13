@@ -6,39 +6,44 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        style="@style/Theme.Orca"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="wrap_content"
+        tools:context=".LancamentosActivity">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarLancamentos"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title=" " />
 
+        <!-- TÍTULO PRINCIPAL: Aplicando a cor primária para máximo destaque -->
         <TextView
             android:id="@+id/textViewTitLancamentos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/textviewTitulo"
             android:textAppearance="?attr/textAppearanceTitleLarge"
-
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbarLancamentos" />
 
+        <!-- RÓTULO 1: Aplicando o estilo Label.Orca -->
         <TextView
             android:id="@+id/textTitulo2"
+            style="@style/Label.Orca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textTitulo2"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitLancamentos" />
@@ -49,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/textViewData"
             app:endIconDrawable="@drawable/ic_calendar"
@@ -67,66 +72,62 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- RÓTULO 2: Aplicando o estilo Label.Orca -->
         <TextView
             android:id="@+id/textView4"
+            style="@style/Label.Orca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textView4"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textFieldDate" />
 
+        <RadioGroup
+            android:id="@+id/radioGroupNatureza"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <RadioButton
+                android:id="@+id/radioBtnReceita"
+                style="@style/RadioButton.Orca"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/radioBtnReceita" />
+
+            <RadioButton
+                android:id="@+id/radioBtnDespesa"
+                style="@style/RadioButton.Orca"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/radioBtnDespesa" />
+        </RadioGroup>
+
+        <!-- RÓTULO 3: Aplicando o estilo Label.Orca -->
         <TextView
             android:id="@+id/textView5"
+            style="@style/Label.Orca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/textView5"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupNatureza" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupNatureza"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            tools:ignore="VisualLintButtonSize"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            >
-
-            <RadioButton
-                android:id="@+id/radioBtnReceita"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:text="@string/radioBtnReceita"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <RadioButton
-                android:id="@+id/radioBtnDespesa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:minHeight="48dp"
-                android:text="@string/radioBtnDespesa"
-                tools:ignore="TouchTargetSizeCheck" />
-        </RadioGroup>
 
         <RadioGroup
             android:id="@+id/radioGroupCategoria"
@@ -139,37 +140,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
+            <!-- RadioButtons mantêm a cor padrão definida no estilo RadioButton.Orca -->
             <RadioButton
                 android:id="@+id/radioBtnCategoria1"
+                style="@style/RadioButton.Orca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/categoria_1" />
 
             <RadioButton
                 android:id="@+id/radioBtnCategoria2"
+                style="@style/RadioButton.Orca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/categoria_2" />
 
             <RadioButton
                 android:id="@+id/radioBtnCategoria3"
+                style="@style/RadioButton.Orca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/categoria_3" />
 
             <RadioButton
                 android:id="@+id/radioBtnCategoria4"
+                style="@style/RadioButton.Orca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/categoria_4" />
 
             <RadioButton
                 android:id="@+id/radioBtnCategoria5"
+                style="@style/RadioButton.Orca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/categoria_5" />
         </RadioGroup>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldDescricao"
@@ -177,7 +183,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/textView6"
             app:layout_constraintEnd_toEndOf="parent"
@@ -193,6 +199,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- O botão por padrão já usa as cores primárias do tema (colorPrimary), então não precisa de mudanças -->
         <Button
             android:id="@+id/buttonSalvar"
             android:layout_width="0dp"
@@ -202,7 +209,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textFieldDescricao" />
+            app:layout_constraintTop_toBottomOf="@+id/textFieldDescricao"
+            app:layout_constraintVertical_bias="0.9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

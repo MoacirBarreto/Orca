@@ -3,9 +3,11 @@ package devandroid.moacir.orca
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
@@ -13,15 +15,19 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-
-// Importe a classe R do seu pacote, se necessário
-// import devandroid.moacir.orca.R
 class LancamentosActivity : AppCompatActivity() {
     private var selectedDate: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamentos)
+
+        val toolbar: MaterialToolbar = findViewById(R.id.toolbarLancamentos)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        // Habilita o botão de voltar ("Up button")
 
         // 1. Encontre o seu TextInputLayout pelo ID
         val textFieldDate = findViewById<TextInputLayout>(R.id.textFieldDate)
@@ -95,4 +101,13 @@ class LancamentosActivity : AppCompatActivity() {
             Toast.makeText(this, "Lançamento salvo!", Toast.LENGTH_SHORT).show()
         }
     } // Fim do onCreate
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Verifica se o botão pressionado é o botão "home" (o de voltar)
+        if (item.itemId == android.R.id.home) {
+            // Finaliza a activity atual e retorna para a anterior (MainActivity)
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
