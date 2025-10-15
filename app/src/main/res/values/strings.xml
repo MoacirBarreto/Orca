@@ -18,4 +18,5 @@
     <string name="lancamentos">Fazer Lançamentos</string>
     <string name="relatorios">Relatórios por período</string>
     <string name="custon">Personalização</string>
+    <string name="valor_do_lancamento">valor do Lancamento (R$)</string>
 </resources>
