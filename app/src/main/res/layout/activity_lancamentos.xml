@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title=" " />
 
+
         <!-- TÍTULO PRINCIPAL: Aplicando a cor primária para máximo destaque -->
         <TextView
             android:id="@+id/textViewTitLancamentos"

@@ -48,6 +48,7 @@ class LancamentosActivity : AppCompatActivity() {
                 // Pega o texto digitado (ex: "150.5" ou "150,5")
                 val text = valorEditText.text.toString()
 
+
                 // Se o campo não estiver vazio...
                 if (text.isNotEmpty()) {
                     try {
