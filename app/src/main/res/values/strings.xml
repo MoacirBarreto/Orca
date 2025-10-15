@@ -19,4 +19,6 @@
     <string name="relatorios">Relatórios por período</string>
     <string name="custon">Personalização</string>
     <string name="valor_do_lancamento">valor do Lancamento (R$)</string>
+    <string name="tela_de_relat_rios">Tela de Relatórios</string>
+    <string name="tela_Custom">Personalização</string>
 </resources>

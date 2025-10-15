@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
 
         // Encontra o botão pelo ID
         val btnLancamentos = findViewById<Button>(R.id.btnGoToLancamentos)
+        val btnGoToRelatorios = findViewById<Button>(R.id.btnGoToRelatorios)
+        val btnGoToCustom = findViewById<Button>(R.id.btnGoToCustom)
 
         // Configura o listener de clique
         btnLancamentos.setOnClickListener {
@@ -23,6 +25,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // TODO: Adicionar listeners para os botões de Relatórios e Configurações quando criar as Activities
+        btnGoToRelatorios.setOnClickListener {
+            // Cria uma Intent para abrir a RelatoriosActivity
+            val intent = Intent(this, RelatoriosActivity::class.java)
+            // Inicia a nova activity
+            startActivity(intent)
+        }
+
+        btnGoToCustom.setOnClickListener {
+            // Cria uma Intent para abrir a RelatoriosActivity
+            val intent = Intent(this, CustomizacaoActivity::class.java)
+            // Inicia a nova activity
+            startActivity(intent)
+        }
+
     }
 }

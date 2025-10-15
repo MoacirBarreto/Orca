@@ -21,7 +21,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title=" " />
 
-
         <!-- TÍTULO PRINCIPAL: Aplicando a cor primária para máximo destaque -->
         <TextView
             android:id="@+id/textViewTitLancamentos"
@@ -97,7 +96,8 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            android:checkedButton="@id/radioBtnDespesa">
 
             <RadioButton
                 android:id="@+id/radioBtnReceita"
@@ -138,8 +138,6 @@
                     style="@style/Label.Orca"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     android:text="@string/textView5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,12 +147,12 @@
                     android:id="@+id/radioGroupCategoria"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5">
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    android:checkedButton="@id/radioBtnCategoria1">
 
                     <!-- RadioButtons mantêm a cor padrão definida no estilo RadioButton.Orca -->
                     <RadioButton
