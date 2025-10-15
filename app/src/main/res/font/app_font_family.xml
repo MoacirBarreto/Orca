@@ -14,5 +14,9 @@
         android:font="@font/verdana_italic" />
 
     <!-- Fonte para o estilo negrito (bold) -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/verdana_bold" />
 
 </font-family>

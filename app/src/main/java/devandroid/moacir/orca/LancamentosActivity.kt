@@ -9,11 +9,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.text.isNotEmpty
+import kotlin.text.replace
+import kotlin.text.toDouble
 
 class LancamentosActivity : AppCompatActivity() {
     private var selectedDate: Calendar = Calendar.getInstance()
@@ -22,10 +27,59 @@ class LancamentosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamentos)
 
+        // --- Configuração da ToolBar  ---
         val toolbar: MaterialToolbar = findViewById(R.id.toolbarLancamentos)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        //Formatação da data no TextInputEditText
+
+        val dateEditText: TextInputEditText = findViewById(R.id.date_edit_text)
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val currentDate = dateFormat.format(Date())
+        dateEditText.setText(currentDate)
+
+        //Formatação do campo valor do lançamento
+        val valorEditText: TextInputEditText = findViewById(R.id.editTextValor)
+        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt","BR"))
+        valorEditText.setOnFocusChangeListener { _, hasFocus ->
+            // 4. Verifique se o campo PERDEU o foco
+            if (!hasFocus) {
+                // Pega o texto digitado (ex: "150.5" ou "150,5")
+                val text = valorEditText.text.toString()
+
+                // Se o campo não estiver vazio...
+                if (text.isNotEmpty()) {
+                    try {
+                        // Limpa o texto para conversão, trocando vírgula por ponto
+                        val cleanString = text.replace(",", ".")
+
+                        // Converte o texto limpo para um número (Double)
+                        val value = cleanString.toDouble()
+
+                        // Formata o número como moeda (ex: "R$ 150,50")
+                        val formattedValue = currencyFormat.format(value)
+
+                        // Define o texto formatado de volta no EditText
+                        valorEditText.setText(formattedValue)
+                    } catch (e: NumberFormatException) {
+                        // Se o usuário digitar algo inválido, limpa o campo
+                        valorEditText.setText("")
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         // Habilita o botão de voltar ("Up button")
 
@@ -101,6 +155,7 @@ class LancamentosActivity : AppCompatActivity() {
             Toast.makeText(this, "Lançamento salvo!", Toast.LENGTH_SHORT).show()
         }
     } // Fim do onCreate
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Verifica se o botão pressionado é o botão "home" (o de voltar)
         if (item.itemId == android.R.id.home) {
@@ -111,3 +166,4 @@ class LancamentosActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
+

@@ -3,8 +3,8 @@
     <!-- =============================================================== -->
     <!-- TEMA PRINCIPAL DO APP (MODO CLARO / PADRÃO)                       -->
     <!-- =============================================================== -->
-    <style name="Theme.Orca" parent="Theme.Material3.DayNight.NoActionBar">
 
+    <style name="Theme.Orca" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Cores Primárias -->
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -40,42 +40,50 @@
         <item name="colorOutline">@color/md_theme_light_outline</item>
 
         <!-- Definições Globais -->
-        <item name="android:fontFamily">@font/app_font_family</item>
+
         <item name="textAppearanceTitleLarge">@style/My.textAppearanceTitleLarge</item>
         <item name="textAppearanceTitleMedium">@style/My.textAppearanceTitleMedium</item>
 
     </style>
+        <!-- ... (Todo o seu tema principal continua igual) ... -->
 
-    <!-- =============================================================== -->
-    <!-- ESTILO PARA RÓTULOS (LABELS) - CORRIGIDO                        -->
-    <!-- =============================================================== -->
-    <style name="Label.Orca" parent="Widget.MaterialComponents.TextView">
-        <item name="android:fontFamily">@font/roboto_italic</item>
-        <!-- A aparência (incluindo o tamanho) é definida pelo TitleMedium customizado -->
-        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
-        <!-- A cor é definida como a secundária do tema -->
-        <item name="android:textColor">?attr/colorSecondary</item>
-        <!-- A LINHA android:textSize foi REMOVIDA daqui -->
-    </style>
+        <!-- =============================================================== -->
+        <!-- ESTILO PARA RÓTULOS (LABELS) - (Já está perfeito)                -->
+        <!-- =============================================================== -->
+        <style name="Label.Orca" parent="Widget.MaterialComponents.TextView">
+            <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
+            <item name="android:textColor">?attr/colorSecondary</item>
+        </style>
 
-    <!-- =============================================================== -->
-    <!-- ESTILOS DE TEXTO CUSTOMIZADOS - CORRIGIDOS                      -->
-    <!-- =============================================================== -->
-    <style name="My.textAppearanceTitleLarge" parent="TextAppearance.Material3.TitleLarge">
-        <item name="android:textSize">30sp</item>
-    </style>
+        <!-- =============================================================== -->
+        <!-- ESTILOS DE BOTÕES CUSTOMIZADOS - VERSÃO LIMPA                   -->
+        <!-- =============================================================== -->
+        <style name="Button.Orca" parent="Widget.Material3.Button">
+            <!-- Define o tamanho e o estilo diretamente, sem usar o textAppearance -->
+            <item name="android:textSize">24sp</item>
+            <item name="android:textStyle">bold</item>
+        </style>
 
-    <style name="My.textAppearanceTitleMedium" parent="TextAppearance.Material3.TitleMedium">
-        <item name="android:textSize">24sp</item> <!-- Aumentei um pouco para melhor visualização -->
-    </style>
+        <!-- =============================================================== -->
+        <!-- ESTILO PARA RADIO BUTTONS - VERSÃO LIMPA                        -->
+        <!-- =============================================================== -->
+        <style name="RadioButton.Orca" parent="Widget.Material3.CompoundButton.RadioButton">
+            <!-- Define o tamanho diretamente. A cor e outros atributos são herdados -->
+            <item name="android:textSize">18sp</item>
+            <item name="android:textColor">?attr/colorOnSurface</item>
+            <item name="android:paddingStart">8dp</item>
+            <item name="android:paddingEnd">8dp</item>
+        </style>
 
-    <!-- =============================================================== -->
-    <!-- ESTILO PARA RADIO BUTTONS                                       -->
-    <!-- =============================================================== -->
-    <style name="RadioButton.Orca" parent="Widget.Material3.CompoundButton.RadioButton">
-        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">8dp</item>
-    </style>
-</resources>
+        <!-- =============================================================== -->
+        <!-- ESTILOS DE TEXTO CUSTOMIZADOS - (Já está perfeito)              -->
+        <!-- =============================================================== -->
+        <style name="My.textAppearanceTitleLarge" parent="TextAppearance.Material3.TitleLarge">
+            <item name="android:textSize">30sp</item>
+        </style>
+
+        <style name="My.textAppearanceTitleMedium" parent="TextAppearance.Material3.TitleMedium">
+            <item name="android:textSize">24sp</item>
+        </style>
+
+    </resources>
