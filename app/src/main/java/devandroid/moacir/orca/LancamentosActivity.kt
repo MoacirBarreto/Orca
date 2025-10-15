@@ -1,9 +1,8 @@
 package devandroid.moacir.orca
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.MenuItem // 1. IMPORT NECESSÁRIO para o botão "voltar"
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,158 +12,120 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.Calendar // 2. IMPORT CORRETO (android.icu.util é mais novo, mas este é suficiente)
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.text.isNotEmpty
-import kotlin.text.replace
-import kotlin.text.toDouble
 
 class LancamentosActivity : AppCompatActivity() {
-    private var selectedDate: Calendar = Calendar.getInstance()
+    // Variável para guardar a data selecionada. Inicia com a data/hora atual.
+    private val selectedDate: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamentos)
 
-        // --- Configuração da ToolBar  ---
+        // --- 1. Configuração da ToolBar ---
         val toolbar: MaterialToolbar = findViewById(R.id.toolbarLancamentos)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //Formatação da data no TextInputEditText
+        // --- 2. Configuração do Campo de Data com DatePicker ---
+        configuraCampoData()
 
-        val dateEditText: TextInputEditText = findViewById(R.id.date_edit_text)
+        // --- 3. Configuração do Campo de Valor (Formatação Monetária) ---
+        configuraCampoValor()
+
+        // --- 4. Configuração do Botão Salvar ---
+        configuraBotaoSalvar()
+    }
+
+    private fun configuraCampoData() {
+        val textFieldDate = findViewById<TextInputLayout>(R.id.textFieldDate)
+        val dateEditText = textFieldDate.editText as? TextInputEditText
+
+        // Define a data de hoje como valor inicial
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val currentDate = dateFormat.format(Date())
-        dateEditText.setText(currentDate)
+        val hoje = dateFormat.format(Date())
+        dateEditText?.setText(hoje)
 
-        //Formatação do campo valor do lançamento
+        // Configura o clique no ÍCONE para abrir o DatePicker
+        textFieldDate.setEndIconOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selecione a data")
+                .setSelection(selectedDate.timeInMillis) // Usa a data já selecionada (ou hoje)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener { selection ->
+                // Corrige o fuso horário para não pegar o dia anterior
+                val timeZone = TimeZone.getDefault()
+                val offset = timeZone.getOffset(selection)
+                val dateInMillis = selection + offset
+
+                // Atualiza a data selecionada na nossa variável
+                selectedDate.timeInMillis = dateInMillis
+
+                // Formata e exibe a data no campo
+                dateEditText?.setText(dateFormat.format(selectedDate.time))
+            }
+
+            datePicker.show(supportFragmentManager, "DATE_PICKER_TAG")
+        }
+    }
+
+    private fun configuraCampoValor() {
+        // CORREÇÃO: Usando o ID correto 'editTextValor' do seu XML
         val valorEditText: TextInputEditText = findViewById(R.id.editTextValor)
-        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt","BR"))
+        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+
         valorEditText.setOnFocusChangeListener { _, hasFocus ->
-            // 4. Verifique se o campo PERDEU o foco
             if (!hasFocus) {
-                // Pega o texto digitado (ex: "150.5" ou "150,5")
                 val text = valorEditText.text.toString()
-
-
-                // Se o campo não estiver vazio...
                 if (text.isNotEmpty()) {
                     try {
-                        // Limpa o texto para conversão, trocando vírgula por ponto
                         val cleanString = text.replace(",", ".")
-
-                        // Converte o texto limpo para um número (Double)
                         val value = cleanString.toDouble()
-
-                        // Formata o número como moeda (ex: "R$ 150,50")
                         val formattedValue = currencyFormat.format(value)
-
-                        // Define o texto formatado de volta no EditText
                         valorEditText.setText(formattedValue)
                     } catch (e: NumberFormatException) {
-                        // Se o usuário digitar algo inválido, limpa o campo
-                        valorEditText.setText("")
+                        valorEditText.setText("") // Limpa se for inválido
+                        Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-        // Habilita o botão de voltar ("Up button")
-
-        // 1. Encontre o seu TextInputLayout pelo ID
-        val textFieldDate = findViewById<TextInputLayout>(R.id.textFieldDate)
-
-        // 2. Configure o listener de clique para o ÍCONE de calendário
-        textFieldDate.setEndIconOnClickListener {
-
-            // 3. Crie o MaterialDatePicker
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Selecione a data")
-                // Pré-seleciona a data de hoje
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build()
-
-            // 4. Adicione um listener para quando o usuário confirmar a data
-            datePicker.addOnPositiveButtonClickListener { selection ->
-                // O 'selection' vem em milissegundos UTC. Precisamos converter.
-
-                // Adiciona o fuso horário para corrigir a data (evita pegar o dia anterior)
-                val timeZone = TimeZone.getDefault()
-                val offset = timeZone.getOffset(Date().time) * -1
-                val dateInMillis = selection + offset
-
-                // Atualiza nossa variável da classe com a data e hora selecionadas
-                selectedDate.timeInMillis = dateInMillis
-
-                // Formata a data para o padrão brasileiro (dd/MM/yyyy) para exibir no campo
-                val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                val formattedDate = format.format(selectedDate.time)
-
-                // 5. Coloque a data formatada no campo de texto
-                textFieldDate.editText?.setText(formattedDate)
-            }
-
-            // 6. Mostre o DatePicker na tela
-            datePicker.show(supportFragmentManager, "DATE_PICKER_TAG")
-        }
-        // Dentro do seu método onCreate, após o código do DatePicker
-
-// ...
-
-        // Lógica para o botão Salvar
+    private fun configuraBotaoSalvar() {
         val buttonSalvar = findViewById<Button>(R.id.buttonSalvar)
         buttonSalvar.setOnClickListener {
-            // Pega a hora, minuto e segundo atuais
-            val now = Calendar.getInstance()
-            val hour = now.get(Calendar.HOUR_OF_DAY)
-            val minute = now.get(Calendar.MINUTE)
-            val second = now.get(Calendar.SECOND)
+            // Pega a hora, minuto e segundo do momento do clique
+            val agora = Calendar.getInstance()
 
-            // Combina a DATA selecionada no DatePicker com a HORA atual do clique
-            val finalTimestamp = Calendar.getInstance()
-            finalTimestamp.time = selectedDate.time // Começa com a data correta
-            finalTimestamp.set(Calendar.HOUR_OF_DAY, hour)
-            finalTimestamp.set(Calendar.MINUTE, minute)
-            finalTimestamp.set(Calendar.SECOND, second)
+            // Combina a DATA selecionada no DatePicker com a HORA atual
+            val finalTimestamp = Calendar.getInstance().apply {
+                time = selectedDate.time // Começa com a data correta (dia, mês, ano)
+                set(Calendar.HOUR_OF_DAY, agora.get(Calendar.HOUR_OF_DAY))
+                set(Calendar.MINUTE, agora.get(Calendar.MINUTE))
+                set(Calendar.SECOND, agora.get(Calendar.SECOND))
+            }
 
-            // AGORA, 'finalTimestamp.time' é o objeto Date que você quer salvar!
-            // 'finalTimestamp.timeInMillis' é o valor Long que você vai gravar no banco de dados.
-
-            // --- Exemplo de como usar ---
             val timestampParaSalvar: Long = finalTimestamp.timeInMillis
 
-            // Apenas para verificação no Logcat
-            Log.d("MainActivity", "Timestamp a ser salvo no BD: $timestampParaSalvar")
-            Log.d("MainActivity", "Data/Hora formatada: ${Date(timestampParaSalvar)}")
+            Log.d("LancamentosActivity", "Timestamp a ser salvo: $timestampParaSalvar")
+            Log.d("LancamentosActivity", "Data/Hora formatada: ${Date(timestampParaSalvar)}")
 
-            // TODO: Aqui você chamaria a função para inserir os dados no banco de dados
-            // ex: viewModel.salvarLancamento(timestampParaSalvar, natureza, categoria, etc...)
-
+            // TODO: Chamar a função para inserir os dados no banco de dados
             Toast.makeText(this, "Lançamento salvo!", Toast.LENGTH_SHORT).show()
         }
-    } // Fim do onCreate
+    }
 
+    // --- 5. Trata o clique no botão "voltar" da Toolbar ---
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Verifica se o botão pressionado é o botão "home" (o de voltar)
         if (item.itemId == android.R.id.home) {
-            // Finaliza a activity atual e retorna para a anterior (MainActivity)
-            finish()
+            finish() // Finaliza a activity atual e retorna para a anterior
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 }
-

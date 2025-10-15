@@ -116,67 +116,107 @@
                 android:text="@string/radioBtnDespesa" />
         </RadioGroup>
 
-        <!-- RÓTULO 3: Aplicando o estilo Label.Orca -->
-        <TextView
-            android:id="@+id/textView5"
-            style="@style/Label.Orca"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardCategorias"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/textView5"
+            app:cardElevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupNatureza" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupNatureza">
 
-        <RadioGroup
-            android:id="@+id/radioGroupCategoria"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/Label.Orca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/textView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCategoria"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                    <!-- RadioButtons mantêm a cor padrão definida no estilo RadioButton.Orca -->
+                    <RadioButton
+                        android:id="@+id/radioBtnCategoria1"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/categoria_1" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnCategoria2"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/categoria_2" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnCategoria3"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/categoria_3" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnCategoria4"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/categoria_4" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnCategoria5"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/categoria_5" />
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldValor"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:orientation="vertical"
+            android:hint="@string/valor_do_lancamento"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            app:layout_constraintTop_toBottomOf="@+id/cardCategorias">
 
-            <!-- RadioButtons mantêm a cor padrão definida no estilo RadioButton.Orca -->
-            <RadioButton
-                android:id="@+id/radioBtnCategoria1"
-                style="@style/RadioButton.Orca"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextValor"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/categoria_1" />
+                android:inputType="numberDecimal" />
 
-            <RadioButton
-                android:id="@+id/radioBtnCategoria2"
-                style="@style/RadioButton.Orca"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/categoria_2" />
-
-            <RadioButton
-                android:id="@+id/radioBtnCategoria3"
-                style="@style/RadioButton.Orca"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/categoria_3" />
-
-            <RadioButton
-                android:id="@+id/radioBtnCategoria4"
-                style="@style/RadioButton.Orca"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/categoria_4" />
-
-            <RadioButton
-                android:id="@+id/radioBtnCategoria5"
-                style="@style/RadioButton.Orca"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/categoria_5" />
-        </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldDescricao"
@@ -189,7 +229,7 @@
             android:hint="@string/textView6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroupCategoria">
+            app:layout_constraintTop_toBottomOf="@id/textFieldValor">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDescricao"
