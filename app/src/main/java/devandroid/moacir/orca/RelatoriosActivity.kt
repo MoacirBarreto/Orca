@@ -16,11 +16,7 @@ class RelatoriosActivity : AppCompatActivity() {
         // --- Configuração da Toolbar ---
         val toolbar: MaterialToolbar = findViewById(R.id.toolbarRelatorios)
         setSupportActionBar(toolbar)
-
-        // Habilita o botão de "voltar" (seta) na Toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // Define um título para a barra
         supportActionBar?.title = "Relatórios"
     }
 

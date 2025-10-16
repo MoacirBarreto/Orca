@@ -29,6 +29,7 @@ class LancamentosActivity : AppCompatActivity() {
         val toolbar: MaterialToolbar = findViewById(R.id.toolbarLancamentos)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Lançamentos"
 
         // --- 2. Configuração do Campo de Data com DatePicker ---
         configuraCampoData()
