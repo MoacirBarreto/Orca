@@ -5,9 +5,9 @@
     <string name="textViewData">Data</string>
     <string name="radioBtnReceita">Receita</string>
     <string name="radioBtnDespesa">Despesa</string>
-    <string name="textView4">Natureza</string>
-    <string name="textView5">Categoria</string>
-    <string name="textView6">Descrição</string>
+    <string name="textViewNatureza">Natureza</string>
+    <string name="textViewCategoria">Categoria de Despesas</string>
+    <string name="textViewDescricao">Descrição</string>
     <string name="editTextDescricao">Descrição</string>
     <string name="categoria_1">Categoria 1</string>
     <string name="categoria_2">Categoria 2</string>
@@ -17,8 +17,18 @@
     <string name="salvar_lancamento">Salvar Lançamento</string>
     <string name="lancamentos">Fazer Lançamentos</string>
     <string name="relatorios">Relatórios por período</string>
-    <string name="custon">Personalização</string>
-    <string name="valor_do_lancamento">valor do Lancamento (R$)</string>
+    <string name="custom">Personalização</string>
+    <string name="valor_do_lancamento">Valor (R$)</string>
     <string name="tela_de_relat_rios">Tela de Relatórios</string>
     <string name="tela_Custom">Personalização</string>
+    <string name="textViewCustomDia">Dia de início</string>
+    <string name="editTextCustomDia">Dia de início</string>
+    <string name="textFieldCat5">Categoria 5</string>
+    <string name="textFieldCat4">Categoria 4</string>
+    <string name="textFieldCat3">Categoria 3</string>
+    <string name="textFieldCat2">Categoria 2</string>
+    <string name="textFieldCat1">Categoria 1</string>
+    <string name="salvar_Custom">Salvar Personalização</string>
+    <string name="nomes_das_categorias">Nomes das Categorias</string>
+    <string name="buttonResetCustom">Restaurar Padrão de fábrica</string>
 </resources>

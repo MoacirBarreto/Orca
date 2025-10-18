@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ESTADO: MARCADO (checked="true") -->
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- Círculo Externo (a borda) -->
+            <item>
+                <shape android:shape="oval">
+                    <!-- Define o tamanho total do indicador -->
+                    <size android:width="16dp" android:height="16dp" />
+                    <!-- Cor da borda quando MARCADO -->
+                    <stroke android:width="2dp" android:color="?attr/colorPrimary" />
+                </shape>
+            </item>
+
+            <!-- Círculo Interno (a bolinha preenchida) -->
+            <item android:left="4dp" android:right="4dp" android:top="4dp" android:bottom="4dp">
+                <shape android:shape="oval">
+                    <!-- Cor da bolinha interna.
+                         Atualmente é a mesma da borda.
+                         Para um efeito de "buraco", use: "?attr/colorSurface" -->
+                    <solid android:color="?attr/colorSurface" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- ESTADO: PADRÃO / DESMARCADO (checked="false") -->
+    <item android:state_checked="false">
+        <shape android:shape="oval">
+            <!-- CORREÇÃO: Tamanho unificado para 16dp -->
+            <size android:width="16dp" android:height="16dp" />
+            <!-- Cor da borda quando DESMARCADO -->
+            <stroke android:width="2dp" android:color="?attr/colorOnSurfaceVariant" />
+        </shape>
+    </item>
+
+</selector>

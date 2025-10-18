@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".CustomizacaoActivity">
 
-    <!-- 1. Toolbar para a tela de Relatórios -->
+    <!-- 1. Toolbar com constraints corrigidas -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarCustom"
         android:layout_width="0dp"
@@ -19,16 +18,194 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title=" " />
 
-    <!-- 2. Texto temporário para identificar a tela -->
+
+    <!-- 3. Rótulo para o dia de vencimento -->
     <TextView
-        android:id="@+id/textViewCustom"
+        android:id="@+id/textViewCustomDiaLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical|end"
+        android:text="@string/textViewCustomDia"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        app:layout_constraintBottom_toBottomOf="@+id/textFieldCustomDia"
+        app:layout_constraintEnd_toStartOf="@+id/textFieldCustomDia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textFieldCustomDia" />
+
+    <!-- 4. Campo para o dia de vencimento, usando TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCustomDia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewCustomDiaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarCustom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCustomDia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="2"
+            tools:text="10" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- 5. Rótulo para as categorias -->
+    <TextView
+        android:id="@+id/textViewCategoriasLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tela_Custom"
-        android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:layout_marginTop="32dp"
+        android:text="@string/nomes_das_categorias"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCustomDia" />
+
+    <!--
+        GRUPO DE CATEGORIAS:
+        A Guideline foi removida e substituída por um alinhamento mais simples e robusto.
+        Os campos agora se alinham um abaixo do outro com espaçamento consistente.
+    -->
+
+    <!-- Categoria 1 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCat1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/textFieldCat1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategoriasLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCat1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Categoria 2 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCat2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/textFieldCat2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCat1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCat2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Categoria 3 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCat3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/textFieldCat3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCat2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCat3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Categoria 4 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCat4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/textFieldCat4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCat3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCat4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Categoria 5 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCat5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/textFieldCat5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCat4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCat5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/buttonSalvarCustom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/salvar_Custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCat5" />
+
+    <Button
+        android:id="@+id/buttonResetCustom"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/buttonResetCustom"
+        android:textColor="?attr/colorError"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarCustom" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSalvarCustom"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
