@@ -48,8 +48,8 @@ class CustomizacaoActivity : AppCompatActivity() {
         editTextCat3 = findViewById(R.id.editTextCat3)
         editTextCat4 = findViewById(R.id.editTextCat4)
         editTextCat5 = findViewById(R.id.editTextCat5)
-        buttonSalvar = findViewById(R.id.buttonSalvarCustom)
-        buttonReset = findViewById(R.id.buttonResetCustom)
+        buttonSalvar = findViewById(R.id.buttonCustomSalvar)
+        buttonReset  = findViewById(R.id.buttonCustomLimpar)
 
 
 // --- 5. Configurar a ação do botão Salvar ---

@@ -31,4 +31,5 @@
     <string name="salvar_Custom">Salvar Personalização</string>
     <string name="nomes_das_categorias">Nomes das Categorias</string>
     <string name="buttonResetCustom">Restaurar Padrão de fábrica</string>
+    <string name="buttonLimpar">Limpar formluário</string>
 </resources>

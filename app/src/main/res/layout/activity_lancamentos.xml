@@ -71,10 +71,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextValor"
+                style="@style/TextInput.Orca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                style="@style/TextInput.Orca"/>
+                android:nextFocusForward="@+id/textFieldDate" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,12 +83,15 @@
         <!-- CAMPO DE DATA - AGORA À DIREITA -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldDate"
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="@string/textViewData"
+            android:nextFocusForward="@+id/textFieldDate"
             app:endIconDrawable="@drawable/ic_calendar"
             app:endIconMode="custom"
             app:layout_constraintBottom_toBottomOf="@id/textFieldValor"
@@ -126,6 +130,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:checkedButton="@id/radioBtnDespesa"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +187,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:checkedButton="@id/radioBtnCategoria1"
+                    android:checkedButton="@id/radio_button_cat1"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -189,35 +197,35 @@
 
                     <!-- RadioButtons mantêm a cor padrão definida no estilo RadioButton.Orca -->
                     <RadioButton
-                        android:id="@+id/radioBtnCategoria1"
+                        android:id="@+id/radio_button_cat1"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/categoria_1" />
 
                     <RadioButton
-                        android:id="@+id/radioBtnCategoria2"
+                        android:id="@+id/radio_button_cat2"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/categoria_2" />
 
                     <RadioButton
-                        android:id="@+id/radioBtnCategoria3"
+                        android:id="@+id/radio_button_cat3"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/categoria_3" />
 
                     <RadioButton
-                        android:id="@+id/radioBtnCategoria4"
+                        android:id="@+id/radio_button_cat4"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/categoria_4" />
 
                     <RadioButton
-                        android:id="@+id/radioBtnCategoria5"
+                        android:id="@+id/radio_button_cat5"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -251,19 +259,30 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- O botão por padrão já usa as cores primárias do tema (colorPrimary), então não precisa de mudanças -->
+        <Button
+            android:id="@+id/buttonLimpar"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/buttonLimpar"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonSalvar"
+            app:layout_constraintEnd_toStartOf="@+id/buttonSalvar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/buttonSalvar" />
+
+        <!-- BOTÃO SALVAR (AJUSTADO) -->
         <Button
             android:id="@+id/buttonSalvar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/salvar_lancamento"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Salvar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textFieldDescricao"
-            app:layout_constraintVertical_bias="0.9" />
-
+            app:layout_constraintStart_toEndOf="@+id/buttonLimpar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
