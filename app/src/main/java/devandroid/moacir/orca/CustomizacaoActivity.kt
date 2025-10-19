@@ -34,7 +34,7 @@ class CustomizacaoActivity : AppCompatActivity() {
         val toolbar: MaterialToolbar = findViewById(R.id.toolbarCustom)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Customização"
+        supportActionBar?.title = "Meu Orçamento Pessoal"
 
         // --- 2. Encontrar os componentes do layout ---
         textFieldDia = findViewById(R.id.textFieldCustomDia)

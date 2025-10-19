@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".LancamentosActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".LancamentosActivity">
+        android:paddingBottom="16dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbarLancamentos"
@@ -19,36 +20,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title=" " />
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.Material3.TitleMedium.Emphasized"
+            app:titleTextColor="?attr/colorOnSurface" />
 
-        <!-- TÍTULO PRINCIPAL: Aplicando a cor primária para máximo destaque -->
         <TextView
-            android:id="@+id/textViewTitLancamentos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/textviewTitulo"
-            android:textAppearance="?attr/textAppearanceTitleLarge"
-            android:textColor="?attr/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarLancamentos" />
-
-        <!-- RÓTULO 1: Aplicando o estilo Label.Orca -->
-        <TextView
-            android:id="@+id/textTitulo2"
+            android:id="@+id/textTituloLancamento"
             style="@style/Label.Orca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/textTitulo2"
+            android:text="@string/textTituloLancamento"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitLancamentos" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbarLancamentos" />
 
-        <!-- LINHA GUIA INVISÍVEL PARA DIVIDIR A TELA AO MEIO -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -56,7 +44,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <!-- CAMPO DE VALOR - AGORA À ESQUERDA -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldValor"
             android:layout_width="0dp"
@@ -67,7 +54,7 @@
             android:hint="@string/valor_do_lancamento"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitulo2">
+            app:layout_constraintTop_toBottomOf="@+id/textTituloLancamento">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextValor"
@@ -76,28 +63,24 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:nextFocusForward="@+id/textFieldDate" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!-- CAMPO DE DATA - AGORA À DIREITA -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldDate"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/textViewData"
-            android:nextFocusForward="@+id/textFieldDate"
+            android:nextFocusForward="@+id/radioGroupNatureza"
             app:endIconDrawable="@drawable/ic_calendar"
             app:endIconMode="custom"
             app:layout_constraintBottom_toBottomOf="@id/textFieldValor"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="@id/textFieldValor">
+            app:layout_constraintStart_toEndOf="@id/guideline">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_edit_text"
@@ -109,52 +92,76 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- RÓTULO 2: Aplicando o estilo Label.Orca -->
-        <TextView
-            android:id="@+id/textView4"
-            style="@style/Label.Orca"
-            android:layout_width="wrap_content"
+        <!-- ===== CORREÇÃO 1: Card da Natureza com Layout Interno ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardNatureza"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/textViewNatureza"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textFieldValor" />
+            app:layout_constraintTop_toBottomOf="@+id/textFieldDate">
 
-        <RadioGroup
-            android:id="@+id/radioGroupNatureza"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:checkedButton="@id/radioBtnDespesa"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/radioBtnReceita"
-                style="@style/RadioButton.Orca"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/radioBtnReceita" />
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/Label.Orca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/textViewNatureza"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/radioBtnDespesa"
-                style="@style/RadioButton.Orca"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/radioBtnDespesa" />
-        </RadioGroup>
+                <RadioGroup
+                    android:id="@+id/radioGroupNatureza"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:checkedButton="@id/radioBtnDespesa"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4">
 
+                    <RadioButton
+                        android:id="@+id/radioBtnReceita"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48dp"
+                        android:text="@string/radioBtnReceita" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnDespesa"
+                        style="@style/RadioButton.Orca"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48dp"
+                        android:text="@string/radioBtnDespesa" />
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== CORREÇÃO 2: Card das Categorias com Layout Interno ===== -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardCategorias"
             android:layout_width="0dp"
@@ -162,21 +169,21 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupNatureza">
+            app:layout_constraintTop_toBottomOf="@+id/cardNatureza">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="6dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textViewCategoria"
                     style="@style/Label.Orca"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@string/textViewCategoria"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -186,66 +193,70 @@
                     android:id="@+id/radioGroupCategoria"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:checkedButton="@id/radio_button_cat1"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewCategoria">
 
-                    <!-- RadioButtons mantêm a cor padrão definida no estilo RadioButton.Orca -->
                     <RadioButton
                         android:id="@+id/radio_button_cat1"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/categoria_1" />
+                        android:minHeight="48dp"
+                        android:text="@string/textFieldCat1" />
 
                     <RadioButton
                         android:id="@+id/radio_button_cat2"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/categoria_2" />
+                        android:minHeight="48dp"
+                        android:text="@string/textFieldCat2" />
 
                     <RadioButton
                         android:id="@+id/radio_button_cat3"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/categoria_3" />
+                        android:minHeight="48dp"
+                        android:text="@string/textFieldCat3" />
 
                     <RadioButton
                         android:id="@+id/radio_button_cat4"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/categoria_4" />
+                        android:minHeight="48dp"
+                        android:text="@string/textFieldCat4" />
 
                     <RadioButton
                         android:id="@+id/radio_button_cat5"
                         style="@style/RadioButton.Orca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/categoria_5" />
+                        android:minHeight="48dp"
+                        android:text="@string/textFieldCat5" />
                 </RadioGroup>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldDescricao"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="@string/textViewDescricao"
+            android:hint="@string/textFieldDescricao"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardCategorias">
@@ -254,9 +265,7 @@
                 android:id="@+id/editTextDescricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
-
+                android:inputType="textCapSentences" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -265,24 +274,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:text="@string/buttonLimpar"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonSalvar"
             app:layout_constraintEnd_toStartOf="@+id/buttonSalvar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonSalvar" />
+            app:layout_constraintTop_toBottomOf="@id/textFieldDescricao" />
 
-        <!-- BOTÃO SALVAR (AJUSTADO) -->
         <Button
             android:id="@+id/buttonSalvar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Salvar"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/buttonSalvar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonLimpar" />
+            app:layout_constraintStart_toEndOf="@+id/buttonLimpar"
+            app:layout_constraintTop_toTopOf="@+id/buttonLimpar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

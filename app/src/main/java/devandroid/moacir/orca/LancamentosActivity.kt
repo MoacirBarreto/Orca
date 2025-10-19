@@ -37,7 +37,6 @@ class LancamentosActivity : AppCompatActivity() {
     private var isResetting = false
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamentos)
@@ -65,7 +64,7 @@ class LancamentosActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbarLancamentos)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Lançamentos"
+        supportActionBar?.title = "Meu Orçamento Pessoal"
 
         // Campos de texto
         dateEditText = findViewById(R.id.date_edit_text)
@@ -76,7 +75,6 @@ class LancamentosActivity : AppCompatActivity() {
         radioButtonCat3 = findViewById(R.id.radio_button_cat3)
         radioButtonCat4 = findViewById(R.id.radio_button_cat4)
         radioButtonCat5 = findViewById(R.id.radio_button_cat5)
-
         radioGroupCategoria = findViewById(R.id.radioGroupCategoria)
         editTextDescricao = findViewById(R.id.editTextDescricao)
         buttonLimpar = findViewById(R.id.buttonLimpar)

@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".CustomizacaoActivity">
 
-    <!-- 1. Toolbar com constraints corrigidas -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarCustom"
         android:layout_width="0dp"
@@ -16,64 +15,61 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title=" " />
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.Material3.TitleMedium.Emphasized"
+        app:titleTextColor="?attr/colorOnSurface" />
 
-
-    <!-- 3. Rótulo para o dia de vencimento -->
     <TextView
-        android:id="@+id/textViewCustomDiaLabel"
+        android:id="@+id/textTituloLancamento"
+        style="@style/Label.Orca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center_vertical|end"
-        android:text="@string/textViewCustomDia"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
-        app:layout_constraintBottom_toBottomOf="@+id/textFieldCustomDia"
-        app:layout_constraintEnd_toStartOf="@+id/textFieldCustomDia"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/textTituloCustom"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textFieldCustomDia" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarCustom" />
 
-    <!-- 4. Campo para o dia de vencimento, usando TextInputLayout -->
+    <!--
+        ===== OTIMIZAÇÃO 1: CAMPO 'DIA DE INÍCIO' =====
+        O TextView do rótulo foi removido.
+        O 'hint' do TextInputLayout agora serve como o rótulo, com a animação de flutuar.
+    -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textFieldCustomDia"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/textViewCustomDia"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewCustomDiaLabel"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarCustom">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTituloLancamento">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextCustomDia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="2"
             tools:text="10" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- 5. Rótulo para as categorias -->
     <TextView
         android:id="@+id/textViewCategoriasLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/nomes_das_categorias"
+        android:text="@string/textViewCategoriasLabel"
         android:textAppearance="?attr/textAppearanceTitleMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFieldCustomDia" />
-
-    <!--
-        GRUPO DE CATEGORIAS:
-        A Guideline foi removida e substituída por um alinhamento mais simples e robusto.
-        Os campos agora se alinham um abaixo do outro com espaçamento consistente.
-    -->
 
     <!-- Categoria 1 -->
     <com.google.android.material.textfield.TextInputLayout
@@ -93,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:maxLength="25"/>
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Categoria 2 -->
@@ -114,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:maxLength="25"/>
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Categoria 3 -->
@@ -135,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:maxLength="25"/>
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Categoria 4 -->
@@ -156,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:maxLength="25"/>
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Categoria 5 -->
@@ -177,8 +173,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:maxLength="25"/>
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- ===== OTIMIZAÇÃO 2: BOTÕES ALINHADOS AO FINAL DA TELA ===== -->
+    <Button
+        android:id="@+id/buttonCustomSalvar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/buttonSalvar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonCustomLimpar" />
 
     <Button
         android:id="@+id/buttonCustomLimpar"
@@ -192,18 +202,5 @@
         app:layout_constraintEnd_toStartOf="@+id/buttonCustomSalvar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/buttonCustomSalvar" />
-
-    <!-- BOTÃO SALVAR (AJUSTADO) -->
-    <Button
-        android:id="@+id/buttonCustomSalvar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Salvar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonCustomLimpar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
