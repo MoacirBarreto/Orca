@@ -1,10 +1,13 @@
-package devandroid.moacir.orca
+package devandroid.moacir.orca.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-
+import devandroid.moacir.orca.ui.activity.CustomizacaoActivity
+import devandroid.moacir.orca.ui.adapter.LancamentosActivity
+import devandroid.moacir.orca.R
+import devandroid.moacir.orca.ui.activity.RelatoriosActivity
 
 class MainActivity : AppCompatActivity() {
 

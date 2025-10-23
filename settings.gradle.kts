@@ -1,14 +1,16 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url = uri("https://jitpack.io")
+            // Adiciona credenciais para autenticar no JitPack
+            credentials {
+                username = providers.gradleProperty("JITPACK_USER").getOrElse("defaultUser")
+                password = providers.gradleProperty("JITPACK_TOKEN").getOrElse("defaultToken")
+            }
+        }
     }
 }
 dependencyResolutionManagement {
@@ -16,9 +18,16 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://jitpack.io")
+            // Adiciona as mesmas credenciais aqui também
+            credentials {
+                username = providers.gradleProperty("JITPACK_USER").getOrElse("defaultUser")
+                password = providers.gradleProperty("JITPACK_TOKEN").getOrElse("defaultToken")
+            }
+        }
     }
 }
 
 rootProject.name = "Orca"
 include(":app")
- 

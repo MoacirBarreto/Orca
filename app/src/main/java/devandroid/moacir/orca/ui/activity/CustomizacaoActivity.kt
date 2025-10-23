@@ -1,4 +1,4 @@
-package devandroid.moacir.orca
+package devandroid.moacir.orca.ui.activity
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import devandroid.moacir.orca.R
 
 class CustomizacaoActivity : AppCompatActivity() {
 

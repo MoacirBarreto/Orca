@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RelatoriosActivity">
+    tools:context=".ui.activity.RelatoriosActivity">
 
     <!-- 1. Toolbar para a tela de Relatórios -->
     <com.google.android.material.appbar.MaterialToolbar

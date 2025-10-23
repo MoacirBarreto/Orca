@@ -1,4 +1,4 @@
-package devandroid.moacir.orca
+package devandroid.moacir.orca.ui.adapter
 
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +8,19 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import devandroid.moacir.orca.R
+import devandroid.moacir.orca.data.database.AppDatabase
+import devandroid.moacir.orca.data.database.LancamentoDao
+import devandroid.moacir.orca.data.model.Lancamento
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
@@ -23,9 +28,14 @@ class LancamentosActivity : AppCompatActivity() {
     // Variável para guardar a data selecionada. Será inicializada no onCreate.
     private val selectedDate: Calendar = Calendar.getInstance()
 
+    // --- NOVA VARIÁVEL PARA O BANCO DE DADOS ---
+    private lateinit var lancamentoDao: LancamentoDao
+
     // Declaração dos componentes da UI
     private lateinit var dateEditText: TextInputEditText
     private lateinit var toolbar: MaterialToolbar
+    private lateinit var editTextValor: TextInputEditText
+    private lateinit var radioGroupNatureza: RadioGroup
     private lateinit var radioButtonCat1: RadioButton
     private lateinit var radioButtonCat2: RadioButton
     private lateinit var radioButtonCat3: RadioButton
@@ -34,12 +44,17 @@ class LancamentosActivity : AppCompatActivity() {
     private lateinit var radioGroupCategoria: RadioGroup
     private lateinit var editTextDescricao: TextInputEditText
     private lateinit var buttonLimpar: Button
+    private lateinit var buttonSalvar: Button
     private var isResetting = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lancamentos)
+
+        // --- NOVO: Inicialização do Banco de Dados ---
+        // Pega a instância do DAO para que possamos usá-la na activity
+        lancamentoDao = AppDatabase.Companion.getDatabase(this).lancamentoDao()
 
         // --- 1. Configuração da UI (Views) ---
         configurarViews()
@@ -53,7 +68,6 @@ class LancamentosActivity : AppCompatActivity() {
         configuraBotaoSalvar()
         configuraPreenchimentoDescricao()
         configuraBotaoLimpar()
-
     }
 
     private fun configurarViews() {
@@ -68,19 +82,117 @@ class LancamentosActivity : AppCompatActivity() {
 
         // Campos de texto
         dateEditText = findViewById(R.id.date_edit_text)
+        editTextValor = findViewById(R.id.editTextValor)
+        editTextDescricao = findViewById(R.id.editTextDescricao)
 
-        // RadioButtons
+
+        // RadioGroups e RadioButtons
+        radioGroupNatureza = findViewById(R.id.radioGroupNatureza)
+        radioGroupCategoria = findViewById(R.id.radioGroupCategoria)
         radioButtonCat1 = findViewById(R.id.radio_button_cat1)
         radioButtonCat2 = findViewById(R.id.radio_button_cat2)
         radioButtonCat3 = findViewById(R.id.radio_button_cat3)
         radioButtonCat4 = findViewById(R.id.radio_button_cat4)
         radioButtonCat5 = findViewById(R.id.radio_button_cat5)
-        radioGroupCategoria = findViewById(R.id.radioGroupCategoria)
-        editTextDescricao = findViewById(R.id.editTextDescricao)
+
+        // Botões
         buttonLimpar = findViewById(R.id.buttonLimpar)
+        buttonSalvar = findViewById(R.id.buttonSalvar)
+    }
+
+    // A função de configurar o botão salvar agora só define o listener
+    private fun configuraBotaoSalvar() {
+        buttonSalvar.setOnClickListener {
+            salvarLancamento()
+        }
+    }
+
+    /**
+     * NOVA FUNÇÃO: Coleta, valida e salva os dados no banco.
+     */
+    private fun salvarLancamento() {
+        // --- 1. COLETA DE DADOS ---
+
+        // Valor
+        val valorString = editTextValor.text.toString()
+            .replace("R$", "")
+            .replace(".", "")
+            .replace(",", ".")
+            .trim()
+        val valor = valorString.toDoubleOrNull()
+
+        // Natureza
+        val idNaturezaSelecionada = radioGroupNatureza.checkedRadioButtonId
+        val natureza = if (idNaturezaSelecionada != -1) {
+            findViewById<RadioButton>(idNaturezaSelecionada).text.toString().uppercase()
+        } else {
+            null
+        }
+
+        // Categoria
+        val idCategoriaSelecionada = radioGroupCategoria.checkedRadioButtonId
+        val categoria = if (idCategoriaSelecionada != -1) {
+            findViewById<RadioButton>(idCategoriaSelecionada).text.toString()
+        } else {
+            null
+        }
+
+        // Descrição
+        val descricao = editTextDescricao.text.toString()
+
+        // Data
+        val dataLancamento = selectedDate.timeInMillis
+
+        // --- 2. VALIDAÇÃO ---
+        if (valor == null || valor == 0.0) {
+            Toast.makeText(this, "Por favor, insira um valor válido.", Toast.LENGTH_SHORT).show()
+            editTextValor.requestFocus() // Foca no campo de valor
+            return
+        }
+        if (natureza == null) {
+            Toast.makeText(this, "Por favor, selecione a natureza (Receita/Despesa).", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (categoria == null) {
+            Toast.makeText(this, "Por favor, selecione uma categoria.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (descricao.isBlank()) {
+            Toast.makeText(this, "Por favor, insira uma descrição.", Toast.LENGTH_SHORT).show()
+            editTextDescricao.requestFocus()
+            return
+        }
+
+        // --- 3. CRIAÇÃO DO OBJETO ---
+        val novoLancamento = Lancamento(
+            valor = valor,
+            natureza = natureza,
+            categoria = categoria,
+            descricao = descricao,
+            dataLancamento = dataLancamento
+            // 'id' e 'dataCriacao' são gerados automaticamente
+        )
+
+        // --- 4. SALVAR NO BANCO DE DADOS (USANDO COROUTINES) ---
+        lifecycleScope.launch {
+            try {
+                lancamentoDao.inserir(novoLancamento)
+
+                Log.d("LancamentosActivity", "Sucesso! Lançamento salvo: $novoLancamento")
+                Toast.makeText(this@LancamentosActivity, "Lançamento salvo com sucesso!", Toast.LENGTH_LONG).show()
+
+                // Opcional: fechar a tela após salvar
+                finish()
+
+            } catch (e: Exception) {
+                Log.e("LancamentosActivity", "Erro ao salvar lançamento", e)
+                Toast.makeText(this@LancamentosActivity, "Falha ao salvar. Tente novamente.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 
+    // As outras funções permanecem as mesmas
     private fun configuraBotaoLimpar() {
         buttonLimpar.setOnClickListener {
             resetarFormulario()
@@ -88,37 +200,18 @@ class LancamentosActivity : AppCompatActivity() {
     }
 
     private fun resetarFormulario() {
-        // --- PASSO CRUCIAL: ATIVA A FLAG ---
-        // Avisa ao resto do app: "Estou limpando o formulário!"
         isResetting = true
-
-        // 1. Limpa os campos de texto principais
-        findViewById<TextInputEditText>(R.id.editTextValor).setText("")
+        editTextValor.setText("")
         editTextDescricao.setText("")
-
-        // 2. Limpa a seleção dos RadioGroups
-        findViewById<RadioGroup>(R.id.radioGroupNatureza).clearCheck()
+        radioGroupNatureza.clearCheck()
         radioGroupCategoria.clearCheck()
-
-        // 3. RECARREGA OS PADRÕES (Nomes das categorias)
         recarregarNomesCategorias()
-
-        // 4. RESETA A DATA PARA O PADRÃO (HOJE)
         definirDataPadraoParaHoje()
-
-        // 5. LIMPA O FOCO DE QUALQUER CAMPO DE TEXTO ATIVO
         currentFocus?.clearFocus()
-
-        // 6. Mostra uma mensagem para o usuário
         Toast.makeText(this, "Formulário limpo", Toast.LENGTH_SHORT).show()
-
-        // --- PASSO CRUCIAL: DESATIVA A FLAG ---
-        // Avisa ao app: "Terminei de limpar. Pode voltar ao normal."
         isResetting = false
     }
 
-
-    // NOVA FUNÇÃO AUXILIAR para carregar apenas os nomes
     private fun recarregarNomesCategorias() {
         val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
         radioButtonCat1.text = sharedPreferences.getString("NOME_CAT_1", "Moradia")
@@ -128,32 +221,13 @@ class LancamentosActivity : AppCompatActivity() {
         radioButtonCat5.text = sharedPreferences.getString("NOME_CAT_5", "Outros")
     }
 
-    // Substitua a função antiga por esta versão melhorada
     private fun configuraPreenchimentoDescricao() {
-        // Adiciona um "ouvinte" que é acionado QUANDO A SELEÇÃO DA CATEGORIA MUDA
         radioGroupCategoria.setOnCheckedChangeListener { group, checkedId ->
+            if (isResetting) return@setOnCheckedChangeListener
+            if (checkedId == -1) return@setOnCheckedChangeListener
 
-            // Se a flag 'isResetting' estiver ativa, ignora TUDO.
-            if (isResetting) {
-                return@setOnCheckedChangeListener
-            }
-
-            // Se nenhum botão estiver selecionado (o que é raro), não faz nada.
-            if (checkedId == -1) {
-                return@setOnCheckedChangeListener
-            }
-
-            // Encontra o RadioButton que foi selecionado.
             val selectedRadioButton: RadioButton = group.findViewById(checkedId)
-
-            // Pega o texto da categoria (ex: "Alimentação").
             val categoriaTexto = selectedRadioButton.text.toString()
-
-            // --- LÓGICA INTELIGENTE ---
-            // Verifica se a descrição está vazia OU se o texto atual
-            // é o nome de uma das outras categorias. Isso permite a atualização
-            // automática enquanto o usuário decide, mas para de atualizar
-            // se ele digitar um texto personalizado (ex: "Alimentação - almoço").
             val descricaoAtual = editTextDescricao.text.toString()
             val nomesCategorias = listOf(
                 radioButtonCat1.text.toString(),
@@ -169,26 +243,14 @@ class LancamentosActivity : AppCompatActivity() {
         }
     }
 
-
-    /**
-     * Carrega as preferências salvas pelo usuário (dia de vencimento, nomes de categoria)
-     * e as aplica nesta tela.
-     */
     private fun carregarConfiguracoes() {
-        // Agora esta função carrega APENAS os nomes das categorias
         recarregarNomesCategorias()
-        // E chama a função que define a data padrão para HOJE
         definirDataPadraoParaHoje()
     }
 
     private fun definirDataPadraoParaHoje() {
-        // 1. Pega uma instância FRESCA do calendário (data de hoje)
         val calendarioHoje = Calendar.getInstance()
-
-        // 2. Atualiza a data selecionada globalmente
         selectedDate.time = calendarioHoje.time
-
-        // 3. Formata e exibe a data no campo
         val formatoData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         dateEditText.setText(formatoData.format(selectedDate.time))
     }
@@ -197,22 +259,16 @@ class LancamentosActivity : AppCompatActivity() {
         val textFieldDate = findViewById<TextInputLayout>(R.id.textFieldDate)
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-        // Configura o clique no ÍCONE para abrir o DatePicker
         textFieldDate.setEndIconOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Selecione a data")
-                .setSelection(selectedDate.timeInMillis) // Usa a data já definida
+                .setSelection(selectedDate.timeInMillis)
                 .build()
 
             datePicker.addOnPositiveButtonClickListener { selection ->
-                // Corrige o fuso horário para não pegar o dia anterior
                 val timeZone = TimeZone.getDefault()
                 val offset = timeZone.getOffset(selection)
-
-                // Atualiza a data selecionada na nossa variável
                 selectedDate.timeInMillis = selection + offset
-
-                // Formata e exibe a data no campo
                 dateEditText.setText(dateFormat.format(selectedDate.time))
             }
 
@@ -221,27 +277,28 @@ class LancamentosActivity : AppCompatActivity() {
     }
 
     private fun configuraCampoValor() {
-        val valorEditText: TextInputEditText = findViewById(R.id.editTextValor)
         val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
-        valorEditText.setOnFocusChangeListener { _, hasFocus ->
+        editTextValor.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                // Ao focar, remove a formatação R$ para facilitar a edição
-                val cleanString = valorEditText.text.toString()
+                val cleanString = editTextValor.text.toString()
                     .replace("R$", "")
                     .replace(".", "")
                     .replace(",", ".")
                     .trim()
-                valorEditText.setText(cleanString)
+                if (cleanString != "0.0") {
+                    editTextValor.setText(cleanString)
+                } else {
+                    editTextValor.setText("")
+                }
             } else {
-                // Ao perder o foco, formata para moeda
-                val text = valorEditText.text.toString()
+                val text = editTextValor.text.toString()
                 if (text.isNotEmpty()) {
                     try {
                         val value = text.toDouble()
-                        valorEditText.setText(currencyFormat.format(value))
+                        editTextValor.setText(currencyFormat.format(value))
                     } catch (e: NumberFormatException) {
-                        valorEditText.setText("") // Limpa se for inválido
+                        editTextValor.setText("")
                         Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -249,34 +306,9 @@ class LancamentosActivity : AppCompatActivity() {
         }
     }
 
-    private fun configuraBotaoSalvar() {
-        val buttonSalvar = findViewById<Button>(R.id.buttonSalvar)
-        buttonSalvar.setOnClickListener {
-            // Pega a hora, minuto e segundo do momento do clique
-            val agora = Calendar.getInstance()
-
-            // Combina a DATA selecionada no DatePicker com a HORA atual
-            val finalTimestamp = Calendar.getInstance().apply {
-                time = selectedDate.time // Começa com a data correta (dia, mês, ano)
-                set(Calendar.HOUR_OF_DAY, agora.get(Calendar.HOUR_OF_DAY))
-                set(Calendar.MINUTE, agora.get(Calendar.MINUTE))
-                set(Calendar.SECOND, agora.get(Calendar.SECOND))
-            }
-
-            val timestampParaSalvar: Long = finalTimestamp.timeInMillis
-
-            Log.d("LancamentosActivity", "Timestamp a ser salvo: $timestampParaSalvar")
-            Log.d("LancamentosActivity", "Data/Hora formatada: ${Date(timestampParaSalvar)}")
-
-            // TODO: Chamar a função para inserir os dados no banco de dados
-            Toast.makeText(this, "Lançamento salvo!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    // Trata o clique no botão "voltar" da Toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            finish() // Finaliza a activity atual e retorna para a anterior
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)
