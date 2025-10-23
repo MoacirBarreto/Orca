@@ -136,6 +136,8 @@ class CustomizacaoActivity : AppCompatActivity() {
         val nomeCat4 = sharedPreferences.getString("NOME_CAT_4", "Lazer")
         val nomeCat5 = sharedPreferences.getString("NOME_CAT_5", "Outras")
 
+
+
         // 3. Define os valores carregados nos campos da tela.
         editTextDia.setText(diaVencimento.toString())
         editTextCat1.setText(nomeCat1)
@@ -144,6 +146,7 @@ class CustomizacaoActivity : AppCompatActivity() {
         editTextCat4.setText(nomeCat4)
         editTextCat5.setText(nomeCat5)
     }
+
 
 
     private fun setupDiaVencimentoValidation() {
